@@ -55,15 +55,18 @@
         </div>
     </nav>
     <div class="container">
+        {{--<form-sum></form-sum>--}}
         <div class="col-md-8 clearfix control-style">
             <form @submit="add">
                 <div class="form-group">
                     <label for="title">名称</label>
                     <input type="text" class="form-control" id="title" placeholder="请输入楼盘名称" v-model="row.title">
                 </div>
+
                 <button type="submit" name="button" class="btn btn-success btn-block">提交</button>
             </form>
         </div>
+
         <div class="table-responsive col-md-12 clearfix">
             <table class=" table table-hover table-bordered table-striped">
                 <thead>
@@ -72,6 +75,7 @@
                     <th>Title</th>
                     <th>Create-Time</th>
                     <th>Update-Time</th>
+                    <th>Operation</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,9 +84,17 @@
                     <td>@{{item.title}}</td>
                     <td>@{{item.created_at}}</td>
                     <td>@{{item.updated_at}}</td>
+                    <td>
+                        <button @click="update(item)">更新</button>
+                        <button @click="del(item.id)">删除</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
+            <ul class="pager">
+                <li><a href="#" @click="top_page">Previous</a></li>
+                <li><a href="#" @click="next_page">Next</a></li>
+            </ul>
         </div>
     </div>
 </div>

@@ -22,12 +22,22 @@ class ApiController extends Controller
 
     public function read()
     {
-        return $this->model->get() ? suc($this->model->get()) : err('internal_error');
+        return $this->model->simplePaginate(10) ? suc($this->model->simplePaginate(10)) : err('internal_error');
     }
 
     public function remove()
     {
         $a = request()->toArray();
-        return $this->model->where('id', $a)->delete();
+        return $this->model->where('id', $a)->delete()?suc():err('internal_error');
+    }
+
+    public function update()
+    {
+        $id = request('id');
+        return $this->model->where('id', $id)->update(request()->toArray()) ?suc($id):err("internal_error");
+    }
+
+    public function number(){
+       return $a= $this->model->count();
     }
 }
