@@ -1,6 +1,6 @@
 ;(function () {
     'use strict';
-    var Event=new Vue();
+    var Event = new Vue();
     Vue.component('form-sum', {
             template: ` <div class="col-md-6">
             <form class="form-horizontal">
@@ -100,31 +100,47 @@
                     house: {}
                 }
             },
+            mounted: function () {
+                var me = this;
+                //把数据渲染到表单中
+                Event.$on('get_and_render', function (data) {
+                    me.house = data;
+                });
+                //成功后重置表单
+                Event.$on('this_success', function () {
+                    me.reset();
+                })
+            },
             methods: {
-                kk(){
-                    console.log(this.house);
-                    Event.$emit('get_data',this.house);
+                //表单提交触发的函数
+                kk() {
+                    Event.$emit('get_data', this.house);
+                },
+                //重置重置表单函数
+                reset: function () {
+                    this.house = {};
                 }
             }
         }
     );
+
     var app = new Vue({
         el: '#root',
         data: {
             mssage: '',
             row: {
-                page:1,
+                page: 1,
             },
-            house:{},
+            house: {},
             list: [],
             data_number: '',
         },
         mounted: function () {
             this.read();
             this.get_data_number();
-            var me=this;
-            Event.$on('get_data',function (data) {
-                me.house=data;
+            var me = this;
+            Event.$on('get_data', function (data) {
+                me.house = data;
                 me.add();
             })
         },
@@ -145,20 +161,20 @@
                     })
             },
             add: function () {
-                if (this.row.id) {
+                if (this.house.id) {
                     axios.post('/a/house/update', this.house)
                         .then((r) => {
                             if (r.data.success) {
-                                this.reset();
                                 this.read();
+                                Event.$emit('this_success');
                             }
                         })
                 } else {
                     axios.post('/a/house/add', this.house)
                         .then((r) => {
                             if (r.data.success) {
-                                this.reset();
                                 this.read();
+                                Event.$emit('this_success');
                             }
                         })
                 }
@@ -172,7 +188,7 @@
                     })
             },
             update: function (data) {
-                this.row = data;
+                Event.$emit('get_and_render', data);
             },
             //上下翻页
             next_page: function () {
