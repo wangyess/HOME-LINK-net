@@ -17,6 +17,7 @@ class ApiController extends Controller
         if (!$title = request('title')) {
             return err('invalid_title');
         }
+//        dd(request()->toArray());
         return $this->model->fill(request()->toArray())->save() ? suc($this->model->id) : err('internal_error');
     }
 

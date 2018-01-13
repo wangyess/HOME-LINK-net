@@ -55,17 +55,17 @@
         </div>
     </nav>
     <div class="container">
-        {{--<form-sum></form-sum>--}}
-        <div class="col-md-8 clearfix control-style">
-            <form @submit="add">
-                <div class="form-group">
-                    <label for="title">名称</label>
-                    <input type="text" class="form-control" id="title" placeholder="请输入楼盘名称" v-model="row.title">
-                </div>
+        <form-sum></form-sum>
+        {{--<div class="col-md-8 clearfix control-style">--}}
+            {{--<form @submit="add">--}}
+                {{--<div class="form-group">--}}
+                    {{--<label for="title">名称</label>--}}
+                    {{--<input type="text" class="form-control" id="title" placeholder="请输入楼盘名称" v-model="row.title">--}}
+                {{--</div>--}}
 
-                <button type="submit" name="button" class="btn btn-success btn-block">提交</button>
-            </form>
-        </div>
+                {{--<button type="submit" name="button" class="btn btn-success btn-block">提交</button>--}}
+            {{--</form>--}}
+        {{--</div>--}}
 
         <div class="table-responsive col-md-12 clearfix">
             <table class=" table table-hover table-bordered table-striped">
